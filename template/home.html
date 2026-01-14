@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat App - Home</title>
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-box {
+            background: #fff;
+            padding: 2.5rem;
+            width: 380px;
+            border-radius: 20px;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .chat-box h2 {
+            margin-bottom: 1.8rem;
+            color: #0f3460;
+            font-size: 24px;
+        }
+
+        /* Input group styling */
+        .input-group {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-group input {
+            width: 80%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #533483;
+            box-shadow: 0 0 6px rgba(83,52,131,0.5);
+        }
+
+        .input-group i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 18px;
+        }
+
+        /* Button */
+        #submit {
+            margin-top: 5px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0f3460, #533483);
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #submit:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 15px rgba(83,52,131,0.5);
+        }
+
+        .footer {
+            margin-top: 1.8rem;
+            font-size: 13px;
+            color: #555;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="chat-box">
+        <h2>Join a Chat Room</h2>
+        <div class="chat-input">
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Enter your name">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="input-group">
+                <input type="text" id="room" placeholder="Enter room name">
+                <i class="fas fa-comments"></i>
+            </div>
+            <input type="button" id="submit" value="Join">
+        </div>
+        <div class="footer">Start chatting with friends 🚀</div>
+    </div>
+
+
+    <script>
+        var btn = document.getElementById("submit");
+        document.querySelector("#username").focus();
+
+        document.querySelector("#room").onkeyup = function(e){
+            if (e.keyCode === 13) { 
+                btn.click();
+            }
+        };
+
+        btn.onclick = function(){
+            var roomname = document.getElementById("room").value.trim();
+            var username = document.getElementById("username").value.trim();
+
+            if(roomname && username){
+                window.location.href = "/chat/" + roomname + "/?username=" + encodeURIComponent(username);
+            } else {
+                alert("Please enter room name and username!");
+            }
+        };
+    </script>
+</body>
+</html>
