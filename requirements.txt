@@ -1,4 +1,6 @@
-django
-channels
-daphne
-gunicorn
+Django>=4.2,<6.0
+channels>=4.0
+daphne>=4.0
+gunicorn>=21.2
+whitenoise>=6.6
+pillow>=10.0
