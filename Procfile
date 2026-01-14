@@ -1,1 +1,1 @@
-web: gunicorn chatweb.wsgi
+web: daphne -b 0.0.0.0 -p $PORT chatweb.asgi:application

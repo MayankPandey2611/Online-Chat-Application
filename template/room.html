@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +27,7 @@
             border-radius: 15px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
 
@@ -111,15 +112,18 @@
         .chat-messages::-webkit-scrollbar {
             width: 6px;
         }
+
         .chat-messages::-webkit-scrollbar-thumb {
             background: #888;
             border-radius: 5px;
         }
+
         .chat-messages::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
     </style>
 </head>
+
 <body>
     <div class="chat-container">
         <div class="chat-header">Chat Room: {{ roomname }}</div>
@@ -137,13 +141,17 @@
         const roomname = JSON.parse(document.getElementById("roomname").textContent);
         const username = JSON.parse(document.getElementById("username").textContent);
 
+        const protocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+
         const chatsocket = new WebSocket(
-            'ws://' + window.location.host + '/ws/chat/' + roomname + '/?username=' + encodeURIComponent(username)
+            protocol + window.location.host + '/ws/chat/' + roomname + '/?username=' + encodeURIComponent(username)
         );
+
+
 
         const chatArea = document.getElementById("chatarea");
 
-        chatsocket.onmessage = function(e) {
+        chatsocket.onmessage = function (e) {
             const data = JSON.parse(e.data);
             const msgDiv = document.createElement("div");
             msgDiv.classList.add("message");
@@ -159,13 +167,14 @@
             chatArea.scrollTop = chatArea.scrollHeight;
         };
 
-        document.getElementById("chatbtn").onclick = function() {
+        document.getElementById("chatbtn").onclick = function () {
             const msg = document.getElementById("chatinput").value.trim();
-            if(msg){
-                chatsocket.send(JSON.stringify({'message': msg, 'user': username}));
+            if (msg) {
+                chatsocket.send(JSON.stringify({ 'message': msg, 'user': username }));
                 document.querySelector("#chatinput").value = '';
             }
         };
     </script>
 </body>
+
 </html>
