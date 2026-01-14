@@ -27,7 +27,7 @@ DEBUG = False
 
 
 ALLOWED_HOSTS = [
-     "online-chat-application-1-ow3i.onrender.com",
+    ".onrender.com",
     "localhost",
     "127.0.0.1",
 ]
